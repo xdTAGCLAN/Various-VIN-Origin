@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Various VIN Lookup</title>
+<title>VIN Lookup</title>
 <style>
     body {
         background-color: #121212;
@@ -56,10 +56,7 @@
 <div>
     <select id="brandSelect">
         <option value="volvo">Volvo</option>
-        <option value="fiat">Fiat</option>
-        <option value="chrysler">Chrysler</option>
-        <option value="jeep">Jeep</option>
-        <option value="alfa">Alfa Romeo</option>
+        <option value="mopar">MOPAR</option>
 		<option value="landrover">Land Rover (pre ~2013)</option>
 		<option value="jaguar">Jaguar (pre ~2013)</option>
     </select>
@@ -86,13 +83,8 @@ async function lookup() {
     switch (brand) {
         case "volvo":
             return lookupVolvo(vin);
-        case "fiat":
-        case "chrysler":
-        case "jeep":
-        case "alfa":
+        case "mopar":
             return lookupMopar(vin, brand);
-        case "toyota":
-            return lookupToyota(vin);
         case "landrover":
             return lookupLandRover(vin);
         case "jaguar":
@@ -143,7 +135,7 @@ async function lookupVolvo(vin) {
 async function lookupMopar(vin, brand) {
     const output = document.getElementById("output");
     const moparBrand = { fiat: "00", chrysler: "01", jeep: "02", alfa: "10" };
-    const url = `https://ws.mopar.eu/api/vda/vehicleDetails?brand=${moparBrand[brand]}&language=4&market=3122&vinorplate=${encodeURIComponent(vin)}`;
+    const url = `https://ws.mopar.eu/api/vda/vehicleDetails?brand=00&language=4&market=3122&vinorplate=${encodeURIComponent(vin)}`;
 
     try {
         const response = await fetch(url, {
@@ -201,4 +193,3 @@ async function lookupJaguar(vin) {
 
 </body>
 </html>
-
